@@ -2,12 +2,26 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    path: '',
+    redirectTo: 'poemas',
+    pathMatch: 'full'
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    path: 'poemas',
+    loadComponent: () =>
+      import('./pages/videojuegos/poemas.page')
+        .then(m => m.PoemasPage)
   },
+  {
+    path: 'poemas-form',
+    loadComponent: () =>
+      import('./pages/videojuego-form/poema-form.page')
+        .then(m => m.PoemaFormPage)
+  },
+  {
+    path: 'poemas-form/:id',
+    loadComponent: () =>
+      import('./pages/videojuego-form/poema-form.page')
+        .then(m => m.PoemaFormPage)
+  }
 ];

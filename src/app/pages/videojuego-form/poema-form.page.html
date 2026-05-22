@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ id ? 'Editar Poema' : 'Nuevo Poema' }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label position="stacked">Imagen</ion-label>
+    <input type="file" accept="image/*" (change)="onImagenChange($event)">
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Video URL</ion-label>
+    <ion-input name="video_url" [(ngModel)]="poema.video_url"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Audio</ion-label>
+    <input type="file" accept="audio/*" (change)="onAudioChange($event)">
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked">
+      Título
+    </ion-label>
+    <ion-input name="titulo" [(ngModel)]="poema.titulo"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">
+      Autor
+    </ion-label>
+    <ion-input name="autor" [(ngModel)]="poema.autor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">
+      Contenido
+    </ion-label>
+    <ion-textarea
+      name="contenido"
+      [(ngModel)]="poema.contenido"
+      autoGrow="true"
+      rows="6">
+    </ion-textarea>
+  </ion-item>
+
+  <ion-button
+    expand="block"
+    class="ion-margin-top"
+    (click)="guardar()">
+    Guardar
+  </ion-button>
+</ion-content>
