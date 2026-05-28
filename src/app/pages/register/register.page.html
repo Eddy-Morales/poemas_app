@@ -11,43 +11,51 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen class="register-content">
+<ion-content fullscreen class="register-content login-page">
 
-  <div class="register-container">
+  <div class="register-container login-shell">
 
-    <div class="logo-section">
+    <div class="logo-section login-hero">
+      <div class="login-badge">Únete</div>
       <h1>Únete ahora</h1>
       <p>Crea tu cuenta para comenzar</p>
     </div>
 
-    <div class="register-card">
+    <div class="register-card login-card">
 
       <form [formGroup]="form" (ngSubmit)="submit()">
 
-        <ion-item class="custom-input">
-          <ion-label position="floating">Email</ion-label>
-          <ion-input
-            type="email"
-            formControlName="email">
-          </ion-input>
-        </ion-item>
+        <div class="field-group">
+          <ion-item class="login-item custom-input">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input
+              type="email"
+              formControlName="email">
+            </ion-input>
+          </ion-item>
+        </div>
 
-        <ion-item class="custom-input">
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input
-            type="password"
-            formControlName="password">
-          </ion-input>
-        </ion-item>
+        <div class="field-group login-password">
+          <ion-item class="login-item custom-input">
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password">
+            </ion-input>
+            <ion-button class="toggle-password" fill="clear" (click)="togglePassword()" aria-label="Mostrar contraseña">
+              <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
 
-        <div *ngIf="error" class="error">
+        <div *ngIf="error" class="login-message">
           {{ error }}
         </div>
 
         <ion-button
           expand="block"
           type="submit"
-          class="register-button"
+          class="register-button primary-action"
           [disabled]="loading">
 
           <ion-spinner

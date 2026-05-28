@@ -28,9 +28,12 @@
         <ion-item class="custom-input">
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input
-            type="password"
+            [type]="showPassword ? 'text' : 'password'"
             formControlName="password">
           </ion-input>
+          <ion-button class="toggle-password" fill="clear" slot="end" (click)="togglePassword()" aria-label="Mostrar contraseña">
+            <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+          </ion-button>
         </ion-item>
 
         <div *ngIf="error" class="error">

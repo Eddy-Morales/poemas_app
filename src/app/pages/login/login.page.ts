@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { RegisterPage } from '../register/register.page';
 
 @Component({
   selector: 'app-login',
@@ -24,12 +23,12 @@ export class LoginPage {
   });
   loading = false;
   error = '';
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router,
-    private modalCtrl: ModalController
+    private router: Router
   ) {}
 
   async submit() {
@@ -47,13 +46,10 @@ export class LoginPage {
   }
 
   async openRegister() {
-    const modal = await this.modalCtrl.create({
-      component: RegisterPage,
-    });
-    await modal.present();
-    const { data } = await modal.onDidDismiss();
-    if (data?.registered) {
-      // opcional: navegar o mostrar mensaje
-    }
+    await this.router.navigate(['/register']);
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 }

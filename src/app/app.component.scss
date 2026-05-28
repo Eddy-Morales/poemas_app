@@ -1,0 +1,32 @@
+
+ion-header,
+ion-toolbar {
+	--background: linear-gradient(90deg, rgba(138,86,255,0.12), rgba(58,209,255,0.08));
+	background: linear-gradient(90deg, #0b0a1a, #071331);
+	border-bottom: 1px solid rgba(138,86,255,0.06);
+	box-shadow: 0 4px 18px rgba(7,10,30,0.6);
+	backdrop-filter: blur(6px) saturate(120%);
+}
+
+ion-toolbar {
+	height: 64px;
+}
+
+ion-title {
+	font-weight: 800;
+	color: #e8e8ff;
+	text-shadow: 0 0 8px rgba(138,86,255,0.08);
+	background: linear-gradient(90deg,#b388ff,#7af0ff);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+ion-button[fill="clear"] {
+	color: #dfe8ff;
+}
+
+/* Asegura contraste en iconos/menus del header */
+ion-icon {
+	color: #cfeeff;
+}
+
