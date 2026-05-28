@@ -1,14 +1,10 @@
 <ion-header translucent="true">
   <ion-toolbar>
     <ion-title>Poemas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="logout-btn" fill="clear" (click)="logout()">Cerrar sesión</ion-button>
+    </ion-buttons>
   </ion-toolbar>
-
-  <!-- FAB -->
-  
-    <ion-button routerLink="/formulario">
-      <ion-icon name="add"></ion-icon>
-    </ion-button>
-  
 </ion-header>
 
 <ion-content class="poemas-content">
@@ -106,7 +102,7 @@
 
   <!-- FAB -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/poemas-form">
+    <ion-fab-button routerLink="/formulario">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

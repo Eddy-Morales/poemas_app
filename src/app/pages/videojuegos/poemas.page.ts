@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import {
   IonHeader,
+  IonButtons,
   IonToolbar,
   IonTitle,
   IonContent,
@@ -32,6 +33,7 @@ import {
 import { addIcons } from 'ionicons';
 import { add } from 'ionicons/icons';
 
+import { AuthService } from '../../services/auth.service';
 import { PoemasService, Poema } from '../../services/poemas';
 
 @Component({
@@ -45,6 +47,7 @@ import { PoemasService, Poema } from '../../services/poemas';
     RouterLink,
 
     IonHeader,
+    IonButtons,
     IonToolbar,
     IonTitle,
     IonContent,
@@ -72,8 +75,10 @@ export class PoemasPage implements OnInit {
   poemas: Poema[] = [];
 
   constructor(
+    private authService: AuthService,
     private poemasService: PoemasService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {
 
     addIcons({
@@ -114,6 +119,21 @@ export class PoemasPage implements OnInit {
     } catch (error) {
 
       console.error('Error eliminando poema:', error);
+
+    }
+
+  }
+
+  async logout() {
+
+    try {
+
+      await this.authService.signOut();
+      await this.router.navigate(['/login']);
+
+    } catch (error) {
+
+      console.error('Error cerrando sesión:', error);
 
     }
 

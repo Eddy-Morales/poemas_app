@@ -1,18 +1,38 @@
 .poemas-content {
-  --background: #f4f6f9;
+  --background: radial-gradient(circle at top, #1f1147 0%, #0d0b1f 45%, #090816 100%);
+}
+
+ion-toolbar {
+  --background: rgba(14, 11, 33, 0.9);
+  --border-color: rgba(124, 58, 237, 0.4);
+  --color: #f3f4f6;
+  backdrop-filter: blur(8px);
+}
+
+ion-title {
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: #eef2ff;
+}
+
+.logout-btn {
+  --color: #c4b5fd;
+  font-weight: 700;
+  text-transform: none;
 }
 
 .poema-card {
   border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  background: rgba(20, 16, 44, 0.92);
+  border: 1px solid rgba(147, 51, 234, 0.35);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.38);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background: white;
 }
 
 .poema-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.14);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.45);
 }
 
 .poema-img {
@@ -22,28 +42,31 @@
 }
 
 ion-card-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #222;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ede9fe;
 }
 
 ion-card-subtitle {
-  color: #3880ff;
-  font-size: 1rem;
+  color: #93c5fd;
+  font-size: 0.98rem;
   margin-top: 4px;
 }
 
+ion-card-content {
+  color: #ddd6fe;
+}
+
 .fecha {
-  color: #888;
-  font-size: 0.9rem;
+  color: #a5b4fc;
+  font-size: 0.88rem;
   margin-bottom: 12px;
 }
 
 .contenido {
-  color: #444;
-  line-height: 1.5;
+  color: #e9e3ff;
+  line-height: 1.55;
   margin-bottom: 16px;
-
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
@@ -58,6 +81,7 @@ ion-card-subtitle {
 .video-frame {
   border-radius: 14px;
   margin-top: 14px;
+  border: 1px solid rgba(96, 165, 250, 0.35);
 }
 
 .buttons {
@@ -68,20 +92,24 @@ ion-card-subtitle {
 
 .buttons ion-button {
   flex: 1;
-  --border-radius: 12px;
-  font-weight: 600;
+  height: 46px;
+  --border-radius: 13px;
+  font-size: 0.97rem;
+  font-weight: 700;
 }
 
 ion-fab-button {
-  --background: #3880ff;
-  --color: white;
-  box-shadow: 0 6px 18px rgba(56,128,255,0.3);
+  --background: linear-gradient(135deg, #7c3aed, #2563eb);
+  --color: #fff;
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.35);
 }
 
-ion-toolbar {
-  --background: white;
-}
+@media (max-width: 768px) {
+  .buttons {
+    flex-direction: column;
+  }
 
-ion-title {
-  font-weight: bold;
+  .buttons ion-button {
+    width: 100%;
+  }
 }

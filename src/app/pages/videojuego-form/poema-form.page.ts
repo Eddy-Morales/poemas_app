@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {
   IonHeader,
+  IonButtons,
   IonToolbar,
   IonTitle,
   IonContent,
@@ -29,6 +30,7 @@ import { PoemasService, Poema } from '../../services/poemas';
     FormsModule,
 
     IonHeader,
+    IonButtons,
     IonToolbar,
     IonTitle,
     IonContent,
@@ -162,6 +164,10 @@ export class PoemaFormPage implements OnInit {
 
     }
 
+  }
+
+  cancelar() {
+    this.router.navigate(['/poemas']);
   }
 
   onImagenChange(event: Event) {
