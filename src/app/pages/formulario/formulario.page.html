@@ -1,74 +1,133 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="form-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">Atrás</ion-button>
+    </ion-buttons>
     <ion-title>Formulario</ion-title>
+    <ion-badge slot="end">{{step}}/3</ion-badge>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input formControlName="nombre"></ion-input>
-    </ion-item>
+    <!-- Paso 1: Datos personales -->
+    <div *ngIf="step === 1" class="step">
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input formControlName="nombre"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Edad</ion-label>
-      <ion-input type="number" formControlName="edad"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label position="floating">Edad</ion-label>
+        <ion-input type="number" formControlName="edad"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Rol</ion-label>
-      <ion-input formControlName="rol"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label position="floating">Rol</ion-label>
+        <ion-input formControlName="rol"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Videojuego favorito</ion-label>
-      <ion-input formControlName="videojuego_fav"></ion-input>
-    </ion-item>
+      <div class="step-actions">
+        <ion-button expand="block" color="primary" (click)="nextStep()">Siguiente</ion-button>
+      </div>
+    </div>
 
-    <ion-item>
-      <ion-label position="floating">Plataforma</ion-label>
-      <ion-input formControlName="plataforma"></ion-input>
-    </ion-item>
+    <!-- Paso 2: Videojuego -->
+    <div *ngIf="step === 2" class="step">
+      <ion-item>
+        <ion-label position="floating">Videojuego favorito</ion-label>
+        <ion-input [value]="form.value.videojuego_fav" readonly></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Género</ion-label>
-      <ion-input formControlName="genero"></ion-input>
-    </ion-item>
+      <ion-searchbar
+        placeholder="Busca y selecciona un videojuego"
+        (ionInput)="onGameSearch($event)"
+        debounce="300">
+      </ion-searchbar>
 
-    <ion-item>
-      <ion-label position="floating">Comentario</ion-label>
-      <ion-textarea formControlName="comentario_juego"></ion-textarea>
-    </ion-item>
+      <ion-list *ngIf="games?.length">
+        <ion-item *ngFor="let g of games" (click)="selectGame(g)">
+          <ion-thumbnail slot="start">
+            <img [src]="g.imageUrl" alt="{{ g.title }}" />
+          </ion-thumbnail>
+          <ion-label>
+            <h3>{{ g.title }}</h3>
+            <p>{{ g.platform }} • {{ g.genre }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
 
-    <ion-item>
-      <ion-label position="stacked">Imagen del juego</ion-label>
-      <input type="file" (change)="onFileChange($event, 'imagen_juego_file')" accept="image/*" />
-    </ion-item>
+      <ion-item *ngIf="selectedGame || form.value.imagen_juego_url">
+        <ion-label position="stacked">Imagen del videojuego</ion-label>
+        <img [src]="selectedGame?.imageUrl || form.value.imagen_juego_url" style="width:100%;border-radius:8px;" />
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Imagen del lugar</ion-label>
-      <input type="file" (change)="onFileChange($event, 'imagen_lugar_file')" accept="image/*" />
-    </ion-item>
+      <ion-item *ngIf="selectedGame">
+        <ion-button fill="clear" color="medium" (click)="clearSelectedGame()">Eliminar selección</ion-button>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Lugar aproximado</ion-label>
-      <ion-input formControlName="lugar_aprox"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label position="floating">Plataforma</ion-label>
+        <ion-input formControlName="plataforma" [disabled]="!selectedGame" readonly></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Latitud</ion-label>
-      <ion-input formControlName="latitud"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label position="floating">Género</ion-label>
+        <ion-input formControlName="genero" [disabled]="!selectedGame" readonly></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Longitud</ion-label>
-      <ion-input formControlName="longitud"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label position="floating">Comentario</ion-label>
+        <ion-textarea formControlName="comentario_juego" [disabled]="!selectedGame" readonly></ion-textarea>
+      </ion-item>
 
-    <ion-button expand="block" type="button" (click)="tryGetLocation()">Usar mi ubicación</ion-button>
+      <div class="step-actions">
+        <ion-button fill="clear" (click)="prevStep()">Anterior</ion-button>
+        <ion-button expand="block" color="primary" (click)="nextStep()">Siguiente</ion-button>
+      </div>
+    </div>
 
-    <ion-button expand="block" type="submit" [disabled]="loading">Enviar</ion-button>
+    <!-- Paso 3: Ubicación e imagen del lugar -->
+    <div *ngIf="step === 3" class="step">
+      <ion-item>
+        <ion-label position="stacked">Imagen del lugar</ion-label>
+        <div style="display:flex;gap:8px;flex-direction:column;">
+          <div style="display:flex;gap:8px;">
+            <label class="file-button">
+              <input type="file" (change)="onFileChange($event, 'imagen_lugar_file')" accept="image/*" />
+              <span>Subir archivo</span>
+            </label>
+            <ion-button color="primary" (click)="takePhoto()">Tomar foto</ion-button>
+          </div>
+
+          <div *ngIf="form.value.imagen_lugar_url">
+            <img [src]="form.value.imagen_lugar_url" class="game-preview" alt="Imagen lugar" />
+          </div>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Lugar aproximado</ion-label>
+        <ion-input formControlName="lugar_aprox"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Latitud</ion-label>
+        <ion-input formControlName="latitud"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Longitud</ion-label>
+        <ion-input formControlName="longitud"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" type="button" (click)="tryGetLocation()">Usar mi ubicación</ion-button>
+
+      <div class="step-actions">
+        <ion-button fill="clear" (click)="prevStep()">Anterior</ion-button>
+        <ion-button expand="block" type="submit" [disabled]="loading">Enviar</ion-button>
+      </div>
+    </div>
   </form>
 
   <ion-toast *ngIf="toastMsg" [isOpen]="true" [message]="toastMsg" duration="2000"></ion-toast>
