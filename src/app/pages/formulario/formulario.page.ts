@@ -63,6 +63,12 @@ export class FormularioPage {
         this.toastMsg = 'Completa tu nombre antes de continuar.';
         return;
       }
+
+      if (!this.form.value.rol) {
+        this.toastMsg = 'Selecciona tu rol antes de continuar.';
+        return;
+      }
+
       this.step = 2;
       return;
     }

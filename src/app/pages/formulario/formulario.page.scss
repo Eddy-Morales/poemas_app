@@ -30,6 +30,55 @@ ion-item input[type="file"] {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.38);
 }
 
+.role-panel {
+  margin: 14px 0 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(18, 14, 40, 0.96), rgba(12, 9, 28, 0.92));
+  border: 1px solid rgba(147, 51, 234, 0.28);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.38);
+}
+
+.role-panel-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #eef2ff;
+  font-weight: 800;
+}
+
+.role-panel-header p {
+  margin: 6px 0 0;
+  font-size: 0.92rem;
+  color: #c4b5fd;
+  line-height: 1.45;
+}
+
+.role-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.role-option {
+  --background: rgba(31, 22, 70, 0.95);
+  --padding-start: 14px;
+  --inner-padding-end: 14px;
+  --min-height: 52px;
+  border: 1px solid rgba(167, 139, 250, 0.24);
+  border-radius: 14px;
+}
+
+.role-option ion-label {
+  color: #eef2ff;
+  font-weight: 700;
+}
+
+.role-option ion-radio {
+  --color: #a78bfa;
+  --color-checked: #38bdf8;
+}
+
 .game-search-header h2 {
   margin: 0;
   font-size: 1.15rem;
@@ -134,6 +183,10 @@ ion-thumbnail img {
 @media (max-width: 768px) {
   .step-actions {
     flex-direction: column-reverse;
+  }
+
+  .role-group {
+    grid-template-columns: 1fr;
   }
 
   .game-search-panel {
