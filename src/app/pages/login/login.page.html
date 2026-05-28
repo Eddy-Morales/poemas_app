@@ -1,0 +1,66 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Bienvenido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="login-content">
+
+  <div class="login-container">
+
+    <div class="logo-section">
+      <h1>Mi App</h1>
+      <p>Inicia sesión para continuar</p>
+    </div>
+
+    <div class="login-card">
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <ion-item class="custom-input">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input
+            type="email"
+            formControlName="email">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="custom-input">
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input
+            type="password"
+            formControlName="password">
+          </ion-input>
+        </ion-item>
+
+        <div *ngIf="error" class="error">
+          {{ error }}
+        </div>
+
+        <ion-button
+          expand="block"
+          type="submit"
+          class="login-button"
+          [disabled]="loading">
+
+          <ion-spinner
+            *ngIf="loading"
+            name="crescent">
+          </ion-spinner>
+
+          <span *ngIf="!loading">Entrar</span>
+        </ion-button>
+
+        <div class="register-link">
+          <a (click)="openRegister()">
+            ¿No tienes cuenta? Crear una
+          </a>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</ion-content>

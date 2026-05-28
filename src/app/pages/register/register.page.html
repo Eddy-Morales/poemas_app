@@ -1,0 +1,70 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Crear cuenta</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="cancel()">
+        Cerrar
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="register-content">
+
+  <div class="register-container">
+
+    <div class="logo-section">
+      <h1>Únete ahora</h1>
+      <p>Crea tu cuenta para comenzar</p>
+    </div>
+
+    <div class="register-card">
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <ion-item class="custom-input">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input
+            type="email"
+            formControlName="email">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="custom-input">
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input
+            type="password"
+            formControlName="password">
+          </ion-input>
+        </ion-item>
+
+        <div *ngIf="error" class="error">
+          {{ error }}
+        </div>
+
+        <ion-button
+          expand="block"
+          type="submit"
+          class="register-button"
+          [disabled]="loading">
+
+          <ion-spinner
+            *ngIf="loading"
+            name="crescent">
+          </ion-spinner>
+
+          <span *ngIf="!loading">
+            Crear cuenta
+          </span>
+
+        </ion-button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</ion-content>

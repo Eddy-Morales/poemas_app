@@ -1,0 +1,87 @@
+.poemas-content {
+  --background: #f4f6f9;
+}
+
+.poema-card {
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: white;
+}
+
+.poema-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.14);
+}
+
+.poema-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+ion-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #222;
+}
+
+ion-card-subtitle {
+  color: #3880ff;
+  font-size: 1rem;
+  margin-top: 4px;
+}
+
+.fecha {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.contenido {
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 16px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.audio-player {
+  width: 100%;
+  margin: 12px 0;
+}
+
+.video-frame {
+  border-radius: 14px;
+  margin-top: 14px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.buttons ion-button {
+  flex: 1;
+  --border-radius: 12px;
+  font-weight: 600;
+}
+
+ion-fab-button {
+  --background: #3880ff;
+  --color: white;
+  box-shadow: 0 6px 18px rgba(56,128,255,0.3);
+}
+
+ion-toolbar {
+  --background: white;
+}
+
+ion-title {
+  font-weight: bold;
+}

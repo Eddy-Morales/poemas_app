@@ -1,135 +1,106 @@
-<style>
-ion-list {
-  margin-top: 16px;
-}
-
-ion-item {
-  --background: #fff;
-  border-radius: 16px;
-  margin-bottom: 18px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  padding: 12px 8px;
-  align-items: flex-start;
-  transition: box-shadow 0.2s;
-}
-
-ion-item:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
-}
-
-ion-label {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-right: 16px;
-  flex: 1;
-}
-
-ion-label h2 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin: 0 0 4px 0;
-  color: #222;
-}
-
-ion-label .autor {
-  font-size: 1rem;
-  color: #3880ff;
-  margin-bottom: 4px;
-}
-
-ion-label .fecha {
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 6px;
-}
-
-ion-label .contenido {
-  margin: 0 0 2px 0;
-  color: #444;
-  font-size: 1.05rem;
-  white-space: pre-line;
-}
-
-ion-button {
-  margin-left: 6px;
-  margin-top: 8px;
-  --border-radius: 8px;
-  --box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-}
-
-ion-fab-button {
-  --background: #3880ff;
-  --color: #fff;
-  font-size: 2rem;
-  box-shadow: 0 4px 16px rgba(56,128,255,0.18);
-}
-
-ion-label img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  align-self: flex-start;
-}
-</style>
-
-<ion-header>
+<ion-header translucent="true">
   <ion-toolbar>
     <ion-title>Poemas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="poemas-content">
 
-  <ion-list>
-    <ion-item *ngFor="let poema of poemas">
-      <ion-label>
-        <img 
-          [src]="poema.imagen_url || 'assets/icon/default-poema.jpg'"
-          alt="Imagen poema"
-          style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);"
-        >
-        <ng-container *ngIf="poema.audio_url as audioUrl">
-          <audio controls style="width: 100%; margin-top: 10px;">
-            <source [src]="audioUrl" type="audio/mpeg">
-            Tu navegador no soporta el elemento de audio.
-          </audio>
-        </ng-container>
-        <h2>{{ poema.titulo }}</h2>
-        <div class="autor">Autor: {{ poema.autor }}</div>
-        <div class="fecha">{{ poema.created_at | date:'short' }}</div>
-        <div class="contenido">{{ poema.contenido }}</div>
+  <ion-grid fixed>
+    <ion-row>
 
+      <ion-col
+        size="12"
+        size-md="6"
+        size-lg="4"
+        *ngFor="let poema of poemas">
 
-        <ng-container *ngIf="poema.video_url as videoUrl">
-          <iframe
-            *ngIf="isYouTubeUrl(videoUrl)"
-            [src]="getYouTubeEmbedUrl(videoUrl)"
-            width="100%"
-            height="315"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            style="border-radius: 8px; margin: 10px 0;">
-          </iframe>
-        </ng-container>
-      </ion-label>
-      <ion-button color="warning" [routerLink]="['/poemas-form', poema.id]">
-        Editar
-      </ion-button>
-      <ion-button color="danger" (click)="eliminar(poema.id!)">
-        Eliminar
-      </ion-button>
-      
-    </ion-item>
-  </ion-list>
+        <ion-card class="poema-card">
 
+          <img
+            class="poema-img"
+            [src]="poema.imagen_url || 'assets/icon/default-poema.jpg'"
+            alt="Imagen poema"
+          >
+
+          <ion-card-header>
+            <ion-card-title>
+              {{ poema.titulo }}
+            </ion-card-title>
+
+            <ion-card-subtitle>
+              {{ poema.autor }}
+            </ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+
+            <div class="fecha">
+              {{ poema.created_at | date:'medium' }}
+            </div>
+
+            <p class="contenido">
+              {{ poema.contenido }}
+            </p>
+
+            <!-- AUDIO -->
+            <ng-container *ngIf="poema.audio_url as audioUrl">
+              <audio controls class="audio-player">
+                <source [src]="audioUrl" type="audio/mpeg">
+              </audio>
+            </ng-container>
+
+            <!-- VIDEO -->
+            <ng-container *ngIf="poema.video_url as videoUrl">
+
+              <iframe
+                *ngIf="isYouTubeUrl(videoUrl)"
+                [src]="getYouTubeEmbedUrl(videoUrl)"
+                width="100%"
+                height="220"
+                frameborder="0"
+                allowfullscreen
+                class="video-frame">
+              </iframe>
+
+            </ng-container>
+
+            <!-- BOTONES -->
+            <div class="buttons">
+
+              <ion-button
+                expand="block"
+                color="warning"
+                [routerLink]="['/poemas-form', poema.id]">
+
+                Editar
+
+              </ion-button>
+
+              <ion-button
+                expand="block"
+                color="danger"
+                (click)="eliminar(poema.id!)">
+
+                Eliminar
+
+              </ion-button>
+
+            </div>
+
+          </ion-card-content>
+
+        </ion-card>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <!-- FAB -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button routerLink="/poemas-form">
-      +
+      <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
