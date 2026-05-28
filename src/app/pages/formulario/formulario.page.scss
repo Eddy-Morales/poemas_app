@@ -62,21 +62,25 @@ ion-item input[type="file"] {
 
 .role-option {
   --background: rgba(31, 22, 70, 0.95);
+  --background-hover: rgba(44, 31, 94, 0.98);
+  --background-activated: rgba(44, 31, 94, 0.98);
+  --border-radius: 14px;
+  --border-color: rgba(167, 139, 250, 0.24);
+  --border-style: solid;
+  --border-width: 1px;
+  --color: #eef2ff;
   --padding-start: 14px;
-  --inner-padding-end: 14px;
+  --padding-end: 14px;
   --min-height: 52px;
-  border: 1px solid rgba(167, 139, 250, 0.24);
-  border-radius: 14px;
+  margin: 0;
+  font-weight: 800;
 }
 
-.role-option ion-label {
-  color: #eef2ff;
-  font-weight: 700;
-}
-
-.role-option ion-radio {
-  --color: #a78bfa;
-  --color-checked: #38bdf8;
+.role-option-active {
+  --background: linear-gradient(90deg, #7c3aed, #2563eb);
+  --background-hover: linear-gradient(90deg, #7c3aed, #2563eb);
+  --background-activated: linear-gradient(90deg, #7c3aed, #2563eb);
+  --border-color: rgba(96, 165, 250, 0.45);
 }
 
 .game-search-header h2 {

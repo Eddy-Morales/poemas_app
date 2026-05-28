@@ -28,27 +28,39 @@
           <p>Selecciona una opción para continuar.</p>
         </div>
 
-        <ion-radio-group formControlName="rol" class="role-group">
-          <ion-item lines="none" class="role-option">
-            <ion-radio slot="start" value="Estudiante"></ion-radio>
-            <ion-label>Estudiante</ion-label>
-          </ion-item>
+        <div class="role-group">
+          <ion-button
+            type="button"
+            class="role-option"
+            [class.role-option-active]="form.value.rol === 'Estudiante'"
+            (click)="selectRole('Estudiante')">
+            Estudiante
+          </ion-button>
 
-          <ion-item lines="none" class="role-option">
-            <ion-radio slot="start" value="Docente"></ion-radio>
-            <ion-label>Docente</ion-label>
-          </ion-item>
+          <ion-button
+            type="button"
+            class="role-option"
+            [class.role-option-active]="form.value.rol === 'Docente'"
+            (click)="selectRole('Docente')">
+            Docente
+          </ion-button>
 
-          <ion-item lines="none" class="role-option">
-            <ion-radio slot="start" value="Administrativo"></ion-radio>
-            <ion-label>Administrativo</ion-label>
-          </ion-item>
+          <ion-button
+            type="button"
+            class="role-option"
+            [class.role-option-active]="form.value.rol === 'Administrativo'"
+            (click)="selectRole('Administrativo')">
+            Administrativo
+          </ion-button>
 
-          <ion-item lines="none" class="role-option">
-            <ion-radio slot="start" value="Visitante"></ion-radio>
-            <ion-label>Visitante</ion-label>
-          </ion-item>
-        </ion-radio-group>
+          <ion-button
+            type="button"
+            class="role-option"
+            [class.role-option-active]="form.value.rol === 'Visitante'"
+            (click)="selectRole('Visitante')">
+            Visitante
+          </ion-button>
+        </div>
       </div>
 
       <div class="step-actions">

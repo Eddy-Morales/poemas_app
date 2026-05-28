@@ -92,6 +92,10 @@ export class FormularioPage {
     if (this.step > 1) this.step--;
   }
 
+  selectRole(role: string) {
+    this.form.patchValue({ rol: role });
+  }
+
   clearSelectedGame() {
     this.selectedGame = undefined;
     this.form.patchValue({
