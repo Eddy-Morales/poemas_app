@@ -18,5 +18,9 @@ export const routes: Routes = [
     path: 'poemas-form/:id',
     loadComponent: () => import('./pages/videojuego-form/poema-form.page').then(m => m.PoemaFormPage),
     canActivate: [AuthGuard]
-  }
+  },
+  {
+  path: 'formulario',
+  loadComponent: () => import('./pages/formulario/formulario.page').then(m => m.FormularioPage)
+}
 ];

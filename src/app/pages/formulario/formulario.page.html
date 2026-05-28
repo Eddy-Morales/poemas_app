@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Formulario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Edad</ion-label>
+      <ion-input type="number" formControlName="edad"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Rol</ion-label>
+      <ion-input formControlName="rol"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Videojuego favorito</ion-label>
+      <ion-input formControlName="videojuego_fav"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Plataforma</ion-label>
+      <ion-input formControlName="plataforma"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Género</ion-label>
+      <ion-input formControlName="genero"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Comentario</ion-label>
+      <ion-textarea formControlName="comentario_juego"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Imagen del juego</ion-label>
+      <input type="file" (change)="onFileChange($event, 'imagen_juego_file')" accept="image/*" />
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Imagen del lugar</ion-label>
+      <input type="file" (change)="onFileChange($event, 'imagen_lugar_file')" accept="image/*" />
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Lugar aproximado</ion-label>
+      <ion-input formControlName="lugar_aprox"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Latitud</ion-label>
+      <ion-input formControlName="latitud"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Longitud</ion-label>
+      <ion-input formControlName="longitud"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="button" (click)="tryGetLocation()">Usar mi ubicación</ion-button>
+
+    <ion-button expand="block" type="submit" [disabled]="loading">Enviar</ion-button>
+  </form>
+
+  <ion-toast *ngIf="toastMsg" [isOpen]="true" [message]="toastMsg" duration="2000"></ion-toast>
+</ion-content>
