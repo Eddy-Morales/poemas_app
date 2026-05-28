@@ -21,10 +21,103 @@ ion-item input[type="file"] {
   margin-top: 12px;
 }
 
+.game-search-panel {
+  margin: 14px 0 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(18, 14, 40, 0.96), rgba(12, 9, 28, 0.92));
+  border: 1px solid rgba(147, 51, 234, 0.28);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.38);
+}
+
+.game-search-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #eef2ff;
+  font-weight: 800;
+}
+
+.api-chip {
+  margin: 0 0 10px;
+  --background: rgba(34, 197, 94, 0.18);
+  --color: #dcfce7;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.game-search-header p {
+  margin: 6px 0 0;
+  font-size: 0.92rem;
+  color: #c4b5fd;
+  line-height: 1.45;
+}
+
 ion-searchbar {
   --background: rgba(31, 22, 70, 0.95);
   --placeholder-color: rgba(203,213,225,0.6);
-  margin: 8px 0 12px 0;
+  margin: 10px 0 0;
+}
+
+.game-search-item {
+  --background: rgba(31, 22, 70, 0.95);
+  --border-radius: 14px;
+  --padding-start: 14px;
+  --inner-padding-end: 14px;
+  margin-top: 12px;
+  border: 1px solid rgba(167, 139, 250, 0.24);
+  border-radius: 14px;
+}
+
+.game-search-item ion-label {
+  color: #c4b5fd;
+  font-weight: 700;
+}
+
+.game-search-item ion-input {
+  --color: #eef2ff;
+  --placeholder-color: rgba(203, 213, 225, 0.72);
+  font-size: 1rem;
+}
+
+.game-results-list {
+  margin: 10px 0 14px;
+  background: transparent;
+}
+
+.game-result-item {
+  --background: rgba(12, 9, 28, 0.78);
+  --padding-start: 10px;
+  --inner-padding-end: 10px;
+  --min-height: 64px;
+  border: 1px solid rgba(167, 139, 250, 0.16);
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.game-result-thumb {
+  width: 54px;
+  height: 38px;
+}
+
+.game-result-thumb img {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.game-result-item h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  color: #eef2ff;
+  font-weight: 800;
+}
+
+ion-select {
+  --placeholder-color: rgba(203, 213, 225, 0.72);
+  --color: #eef2ff;
+}
+
+ion-select::part(text) {
+  color: #eef2ff;
 }
 
 ion-list ion-item {
@@ -42,6 +135,14 @@ ion-thumbnail img {
   .step-actions {
     flex-direction: column-reverse;
   }
+
+  .game-search-panel {
+    padding: 14px;
+  }
+
+  .game-result-item {
+    --min-height: 58px;
+  }
 }
 
 /* Inputs deshabilitados lucen atenuados */
@@ -53,6 +154,51 @@ ion-input[disabled], ion-textarea[disabled] {
   max-height: 220px;
   width: 100%;
   object-fit: cover;
+}
+
+.photo-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 12px 0 16px;
+}
+
+.camera-button,
+.location-button {
+  --background: linear-gradient(90deg, #7c3aed, #2563eb);
+  --color: #ffffff;
+  --border-radius: 14px;
+  height: 48px;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.24);
+}
+
+.camera-button ion-icon,
+.location-button ion-icon {
+  color: #ffffff;
+}
+
+.file-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(167, 139, 250, 0.38);
+  background: rgba(31, 22, 70, 0.95);
+  color: #eef2ff;
+  font-weight: 800;
+  cursor: pointer;
+  text-align: center;
+}
+
+.file-button input[type="file"] {
+  display: none;
+}
+
+.image-preview-box {
+  margin: 0 0 14px;
 }
 
 /* Header style */

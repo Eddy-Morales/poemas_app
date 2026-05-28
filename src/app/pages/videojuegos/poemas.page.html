@@ -1,6 +1,6 @@
 <ion-header translucent="true">
   <ion-toolbar>
-    <ion-title>Poemas</ion-title>
+    <ion-title>Videojuegos</ion-title>
     <ion-buttons slot="end">
       <ion-button class="logout-btn" fill="clear" (click)="logout()">Cerrar sesión</ion-button>
     </ion-buttons>
@@ -8,6 +8,10 @@
 </ion-header>
 
 <ion-content class="poemas-content">
+
+  <div class="page-hero">
+    <h2>Juegos free to play</h2>
+  </div>
 
   <ion-grid fixed>
     <ion-row>
@@ -22,17 +26,17 @@
 
           <img
             class="poema-img"
-            [src]="poema.imagen_url || 'assets/icon/default-poema.jpg'"
-            alt="Imagen poema"
+            [src]="poema.imagenPrincipal || 'assets/icon/default-poema.jpg'"
+            alt="Imagen del registro"
           >
 
           <ion-card-header>
             <ion-card-title>
-              {{ poema.titulo }}
+              {{ poema.nombre || 'Sin nombre' }}
             </ion-card-title>
 
             <ion-card-subtitle>
-              {{ poema.autor }}
+              {{ poema.videojuego_fav || 'Sin videojuego seleccionado' }}
             </ion-card-subtitle>
           </ion-card-header>
 
@@ -42,59 +46,68 @@
               {{ poema.created_at | date:'medium' }}
             </div>
 
+            <div class="chip-row">
+              <ion-chip color="success" class="free-chip">
+                <ion-label>Free to play</ion-label>
+              </ion-chip>
+
+              <ion-chip color="primary">
+                <ion-icon name="game-controller-outline"></ion-icon>
+                <ion-label>{{ poema.plataforma || 'Sin plataforma' }}</ion-label>
+              </ion-chip>
+
+              <ion-chip color="secondary">
+                <ion-icon name="location-outline"></ion-icon>
+                <ion-label>{{ poema.lugar_aprox || 'Sin lugar' }}</ion-label>
+              </ion-chip>
+            </div>
+
             <p class="contenido">
-              {{ poema.contenido }}
+              {{ poema.comentario_juego || 'Sin comentario guardado.' }}
             </p>
 
-            <!-- AUDIO -->
-            <ng-container *ngIf="poema.audio_url as audioUrl">
-              <audio controls class="audio-player">
-                <source [src]="audioUrl" type="audio/mpeg">
-              </audio>
-            </ng-container>
+            <div class="meta-grid">
+              <div>
+                <strong>Rol</strong>
+                <span>{{ poema.rol || 'Sin rol' }}</span>
+              </div>
 
-            <!-- VIDEO -->
-            <ng-container *ngIf="poema.video_url as videoUrl">
+              <div>
+                <strong>Género</strong>
+                <span>{{ poema.genero || 'Sin género' }}</span>
+              </div>
 
-              <iframe
-                *ngIf="isYouTubeUrl(videoUrl)"
-                [src]="getYouTubeEmbedUrl(videoUrl)"
-                width="100%"
-                height="220"
-                frameborder="0"
-                allowfullscreen
-                class="video-frame">
-              </iframe>
+              <div>
+                <strong>Edad</strong>
+                <span>{{ poema.edad ?? '—' }}</span>
+              </div>
 
-            </ng-container>
-
-            <!-- BOTONES -->
-            <div class="buttons">
-
-              <ion-button
-                expand="block"
-                color="warning"
-                [routerLink]="['/poemas-form', poema.id]">
-
-                Editar
-
-              </ion-button>
-
-              <ion-button
-                expand="block"
-                color="danger"
-                (click)="eliminar(poema.id!)">
-
-                Eliminar
-
-              </ion-button>
-
+              <div>
+                <strong>Ubicación</strong>
+                <span class="location-values">
+                  <span class="location-line">
+                    <ion-icon name="location-outline"></ion-icon>
+                    <span>Latitud: {{ poema.latitud !== null && poema.latitud !== undefined && poema.latitud !== '' ? (poema.latitud | number:'1.3-3') : '—' }}</span>
+                  </span>
+                  <span class="location-line">
+                    <ion-icon name="location-outline"></ion-icon>
+                    <span>Longitud: {{ poema.longitud !== null && poema.longitud !== undefined && poema.longitud !== '' ? (poema.longitud | number:'1.3-3') : '—' }}</span>
+                  </span>
+                </span>
+              </div>
             </div>
 
           </ion-card-content>
 
         </ion-card>
 
+      </ion-col>
+
+      <ion-col size="12" *ngIf="!poemas.length">
+        <div class="empty-state">
+          <h3>Aún no hay registros</h3>
+          <p>Cuando envíes un formulario, aquí aparecerá la tarjeta con tus datos.</p>
+        </div>
       </ion-col>
 
     </ion-row>

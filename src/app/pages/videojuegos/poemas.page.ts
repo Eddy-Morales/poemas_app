@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
 import {
   IonHeader,
   IonButtons,
@@ -26,15 +24,21 @@ import {
   IonCardSubtitle,
   IonCardContent,
 
-  IonIcon
+  IonIcon,
+  IonChip,
+  IonLabel
 
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { add } from 'ionicons/icons';
+import { add, locationOutline, gameControllerOutline } from 'ionicons/icons';
 
 import { AuthService } from '../../services/auth.service';
-import { PoemasService, Poema } from '../../services/poemas';
+import { FormularioService, RegistroFormulario } from '../../services/formulario.service';
+
+type TarjetaFormulario = RegistroFormulario & {
+  imagenPrincipal?: string;
+};
 
 @Component({
   selector: 'app-poemas',
@@ -67,22 +71,25 @@ import { PoemasService, Poema } from '../../services/poemas';
     IonCardSubtitle,
     IonCardContent,
 
-    IonIcon
+    IonIcon,
+    IonChip,
+    IonLabel
   ]
 })
 export class PoemasPage implements OnInit {
 
-  poemas: Poema[] = [];
+  poemas: TarjetaFormulario[] = [];
 
   constructor(
     private authService: AuthService,
-    private poemasService: PoemasService,
-    private sanitizer: DomSanitizer,
+    private formularioService: FormularioService,
     private router: Router
   ) {
 
     addIcons({
-      add
+      add,
+      locationOutline,
+      gameControllerOutline
     });
 
   }
@@ -99,26 +106,16 @@ export class PoemasPage implements OnInit {
 
     try {
 
-      this.poemas = await this.poemasService.listar();
+      const registros = await this.formularioService.listar();
+
+      this.poemas = registros.map((registro) => ({
+        ...registro,
+        imagenPrincipal: registro.imagen_juego_url || registro.imagen_lugar_url || 'assets/icon/default-poema.jpg'
+      }));
 
     } catch (error) {
 
-      console.error('Error cargando poemas:', error);
-
-    }
-
-  }
-
-  async eliminar(id: number) {
-
-    try {
-
-      await this.poemasService.eliminar(id);
-      await this.cargar();
-
-    } catch (error) {
-
-      console.error('Error eliminando poema:', error);
+      console.error('Error cargando registros del formulario:', error);
 
     }
 
@@ -136,34 +133,6 @@ export class PoemasPage implements OnInit {
       console.error('Error cerrando sesión:', error);
 
     }
-
-  }
-
-  isYouTubeUrl(url?: string): boolean {
-
-    return !!url && /youtu\.be|youtube\.com/.test(url);
-
-  }
-
-  getYouTubeEmbedUrl(url: string): SafeResourceUrl | null {
-
-    const videoId = this.extractYouTubeId(url);
-
-    if (!videoId) return null;
-
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-
-    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-
-  }
-
-  private extractYouTubeId(url: string): string | null {
-
-    const match = url.match(
-      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/
-    );
-
-    return match ? match[1] : null;
 
   }
 

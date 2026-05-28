@@ -5,6 +5,7 @@ import { IonicModule, IonToast } from '@ionic/angular';
 import { FormularioService } from '../../services/formulario.service';
 import { VideojuegoApi, Game } from '../../services/videojuego-api';
 import { PhotoService, UserPhoto } from '../../services/photo';
+import { LocationService } from '../../services/location';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -45,7 +46,8 @@ export class FormularioPage {
     private svc: FormularioService,
     private videojuegoApi: VideojuegoApi,
     private router: Router,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private locationService: LocationService
   ) {}
 
   ngOnInit() {
@@ -117,7 +119,7 @@ export class FormularioPage {
         return of([]);
       })
     ).subscribe(list => {
-      this.games = list.slice(0, 8);
+      this.games = list;
     });
   }
 
@@ -159,16 +161,25 @@ export class FormularioPage {
   }
 
   async tryGetLocation() {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(
-      pos => {
-        this.form.patchValue({
-          latitud: String(pos.coords.latitude),
-          longitud: String(pos.coords.longitude)
-        });
-      },
-      () => {}
-    );
+    try {
+      const perms = await this.locationService.ensurePermissions();
+      const granted = perms.location === 'granted' || perms.coarseLocation === 'granted';
+
+      if (!granted) {
+        this.toastMsg = 'No se concedieron permisos de ubicación.';
+        return;
+      }
+
+      const position = await this.locationService.getCurrentPosition();
+      this.form.patchValue({
+        latitud: String(position.coords.latitude),
+        longitud: String(position.coords.longitude)
+      });
+      this.toastMsg = 'Ubicación obtenida correctamente.';
+    } catch (error) {
+      console.error('Error obteniendo ubicación:', error);
+      this.toastMsg = 'No se pudo obtener la ubicación en el dispositivo.';
+    }
   }
 
   async submit() {

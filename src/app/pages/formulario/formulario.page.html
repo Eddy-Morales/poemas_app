@@ -24,11 +24,16 @@
 
       <ion-item>
         <ion-label position="floating">Rol</ion-label>
-        <ion-input formControlName="rol"></ion-input>
+        <ion-select formControlName="rol" placeholder="Selecciona un rol">
+          <ion-select-option value="Estudiante">Estudiante</ion-select-option>
+          <ion-select-option value="Docente">Docente</ion-select-option>
+          <ion-select-option value="Administrativo">Administrativo</ion-select-option>
+          <ion-select-option value="Visitante">Visitante</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <div class="step-actions">
-        <ion-button expand="block" color="primary" (click)="nextStep()">Siguiente</ion-button>
+        <ion-button type="button" expand="block" color="primary" (click)="nextStep()">Siguiente</ion-button>
       </div>
     </div>
 
@@ -39,20 +44,37 @@
         <ion-input [value]="form.value.videojuego_fav" readonly></ion-input>
       </ion-item>
 
-      <ion-searchbar
-        placeholder="Busca y selecciona un videojuego"
-        (ionInput)="onGameSearch($event)"
-        debounce="300">
-      </ion-searchbar>
+      <div class="game-search-panel">
+        <div class="game-search-header">
+          <ion-chip color="success" class="api-chip">
+            <ion-label>Free to play</ion-label>
+          </ion-chip>
+          <h2>Busca el juego</h2>
+          <p>Escribe el nombre y selecciona el que quieres guardar.</p>
+        </div>
 
-      <ion-list *ngIf="games?.length">
-        <ion-item *ngFor="let g of games" (click)="selectGame(g)">
-          <ion-thumbnail slot="start">
-            <img [src]="g.imageUrl" alt="{{ g.title }}" />
+        <ion-item class="game-search-item">
+          <ion-label position="stacked">Buscar videojuego</ion-label>
+          <ion-input
+            placeholder="Busca y selecciona un videojuego"
+            (ionInput)="onGameSearch($event)">
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <ion-list *ngIf="games?.length" class="game-results-list">
+        <ion-item
+          *ngFor="let g of games"
+          class="game-result-item"
+          lines="none"
+          button
+          detail="false"
+          (click)="selectGame(g)">
+          <ion-thumbnail slot="start" class="game-result-thumb">
+            <img [src]="g.imageUrl" [alt]="g.title" />
           </ion-thumbnail>
           <ion-label>
             <h3>{{ g.title }}</h3>
-            <p>{{ g.platform }} • {{ g.genre }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -82,8 +104,8 @@
       </ion-item>
 
       <div class="step-actions">
-        <ion-button fill="clear" (click)="prevStep()">Anterior</ion-button>
-        <ion-button expand="block" color="primary" (click)="nextStep()">Siguiente</ion-button>
+        <ion-button type="button" fill="clear" (click)="prevStep()">Anterior</ion-button>
+        <ion-button type="button" expand="block" color="primary" (click)="nextStep()">Siguiente</ion-button>
       </div>
     </div>
 
@@ -91,20 +113,23 @@
     <div *ngIf="step === 3" class="step">
       <ion-item>
         <ion-label position="stacked">Imagen del lugar</ion-label>
-        <div style="display:flex;gap:8px;flex-direction:column;">
-          <div style="display:flex;gap:8px;">
-            <label class="file-button">
-              <input type="file" (change)="onFileChange($event, 'imagen_lugar_file')" accept="image/*" />
-              <span>Subir archivo</span>
-            </label>
-            <ion-button color="primary" (click)="takePhoto()">Tomar foto</ion-button>
-          </div>
-
-          <div *ngIf="form.value.imagen_lugar_url">
-            <img [src]="form.value.imagen_lugar_url" class="game-preview" alt="Imagen lugar" />
-          </div>
-        </div>
       </ion-item>
+
+      <div class="photo-actions">
+        <label class="file-button">
+          <input type="file" (change)="onFileChange($event, 'imagen_lugar_file')" accept="image/*" />
+          <span>Subir archivo</span>
+        </label>
+
+        <ion-button class="camera-button" type="button" color="primary" expand="block" (click)="takePhoto()">
+          <ion-icon name="camera-outline" slot="start"></ion-icon>
+          Tomar foto
+        </ion-button>
+      </div>
+
+      <div *ngIf="form.value.imagen_lugar_url" class="image-preview-box">
+        <img [src]="form.value.imagen_lugar_url" class="game-preview" alt="Imagen lugar" />
+      </div>
 
       <ion-item>
         <ion-label position="floating">Lugar aproximado</ion-label>
@@ -121,10 +146,13 @@
         <ion-input formControlName="longitud"></ion-input>
       </ion-item>
 
-      <ion-button expand="block" type="button" (click)="tryGetLocation()">Usar mi ubicación</ion-button>
+      <ion-button class="location-button" expand="block" type="button" (click)="tryGetLocation()">
+        <ion-icon name="locate-outline" slot="start"></ion-icon>
+        Usar mi ubicación
+      </ion-button>
 
       <div class="step-actions">
-        <ion-button fill="clear" (click)="prevStep()">Anterior</ion-button>
+        <ion-button type="button" fill="clear" (click)="prevStep()">Anterior</ion-button>
         <ion-button expand="block" type="submit" [disabled]="loading">Enviar</ion-button>
       </div>
     </div>

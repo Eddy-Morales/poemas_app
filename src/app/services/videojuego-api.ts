@@ -49,6 +49,7 @@ export class VideojuegoApi {
   searchByName(name: string): Observable<Game[]> {
     const q = (name || '').trim().toLowerCase();
     if (!q) return this.getGames();
+
     return this.getGames().pipe(
       map(list => list.filter(g => g.title.toLowerCase().includes(q)))
     );
