@@ -156,17 +156,32 @@ export class FormularioPage {
   async takePhoto() {
     try {
       await this.photoService.addNewToGallery();
-      // La foto se añade al inicio del array
+
       const latest = this.photoService.photos[0];
-      if (latest && latest.webviewPath) {
-        this.form.patchValue({ imagen_lugar_url: latest.webviewPath });
-        this.toastMsg = 'Foto capturada.';
-      } else {
+      if (!latest?.webviewPath) {
         this.toastMsg = 'No se pudo obtener la foto.';
+        return;
       }
+
+      // Convertir la imagen local a Blob
+      const response = await fetch(latest.webviewPath);
+      const blob = await response.blob();
+
+      // Crear un File para poder subirlo a Supabase Storage
+      const fileName = `imagen_lugar_${Date.now()}.jpeg`;
+      const file = new File([blob], fileName, { type: blob.type || 'image/jpeg' });
+
+      // Subir al bucket
+      const ruta = `examen1/${fileName}`;
+      const urlPublica = await this.svc.subirArchivo('imagenes_form', ruta, file);
+
+      // Guardar la URL pública en el formulario
+      this.form.patchValue({ imagen_lugar_url: urlPublica });
+
+      this.toastMsg = 'Foto capturada y guardada en Supabase.';
     } catch (error) {
       console.error('Error tomando foto:', error);
-      this.toastMsg = 'Error al tomar la foto.';
+      this.toastMsg = 'Error al tomar la foto o subirla al bucket.';
     }
   }
 

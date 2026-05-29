@@ -29,7 +29,22 @@
             [src]="poema.imagenPrincipal || 'assets/icon/default-poema.jpg'"
             alt="Imagen del registro"
           >
+          <ion-button
+            expand="block"
+            fill="outline"
+            size="small"
+            class="mt-2"
+            *ngIf="poema.imagen_lugar_url"
+            (click)="toggleImagenLugar(poema.id!)">
+            {{ imagenLugarVisibleId === poema.id ? 'Ocultar imagen del lugar' : 'Ver imagen del lugar' }}
+          </ion-button>
 
+          <img
+            *ngIf="imagenLugarVisibleId === poema.id && poema.imagen_lugar_url"
+            class="poema-img lugar-img"
+            [src]="poema.imagen_lugar_url"
+            alt="Imagen del lugar"
+          />
           <ion-card-header>
             <ion-card-title>
               {{ poema.nombre || 'Sin nombre' }}

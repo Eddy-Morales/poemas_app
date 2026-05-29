@@ -80,6 +80,13 @@ export class PoemasPage implements OnInit {
 
   poemas: TarjetaFormulario[] = [];
 
+  imagenLugarVisibleId: number | null = null;
+
+  toggleImagenLugar(id: number) {
+    this.imagenLugarVisibleId =
+      this.imagenLugarVisibleId === id ? null : id;
+  }
+
   constructor(
     private authService: AuthService,
     private formularioService: FormularioService,

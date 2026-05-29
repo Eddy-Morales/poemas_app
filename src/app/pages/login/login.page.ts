@@ -31,12 +31,21 @@ export class LoginPage {
     private router: Router
   ) {}
 
+  showWelcome = false;
+
   async submit() {
     if (this.form.invalid) return;
     this.loading = true;
     this.error = '';
+
     try {
       await this.auth.signIn(this.form.value.email!, this.form.value.password!);
+
+      // Mostrar imagen de bienvenida 2 segundos y luego navegar
+      this.showWelcome = true;
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      this.showWelcome = false;
+
       await this.router.navigateByUrl('/poemas', { replaceUrl: true });
     } catch (e: any) {
       this.error = e?.message ?? 'Error al iniciar sesión';

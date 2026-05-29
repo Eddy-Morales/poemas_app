@@ -332,3 +332,26 @@ ion-icon { color: #cfeeff; }
 
 /* ensure toggle icon visible in right place */
 .toggle-password ion-icon { color: var(--color, #00ffd0); font-size: 20px; }
+
+
+ion-content { position: relative; }
+
+.welcome-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);
+  z-index: 9999;
+}
+
+.welcome-overlay img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  animation: pop 0.3s ease-out;
+}
+
+@keyframes pop { from { transform: scale(0.8); opacity: 0 } to { transform: scale(1); opacity: 1 } }
