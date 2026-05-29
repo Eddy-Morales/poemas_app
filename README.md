@@ -35,4 +35,5 @@ https://tabla-393d0.web.app/home
 
 ## Invitación para probar la app
 
-<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/1742a3ae-3be8-4ad8-95a4-7b4d0fcec417" />
+<img width="1920" height="1080" alt="🎮 ¡Estamos probando nuestra nueva app de videojuegos desarrollada en Ionic! ¿Te gustaría ser parte de la prueba 🚀 Escanea el código QR, crea tu cuenta y ayúdanos a mejorar la experiencia  ¡Tu fe" src="https://github.com/user-attachments/assets/7f6b1ab5-21b4-45e0-8c2f-0f892758ee3f" />
+
