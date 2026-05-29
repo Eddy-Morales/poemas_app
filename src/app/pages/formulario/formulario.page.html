@@ -12,15 +12,15 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <!-- Paso 1: Datos personales -->
     <div *ngIf="step === 1" class="step">
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input formControlName="nombre"></ion-input>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label" for="nombre">Nombre</label>
+        <input id="nombre" class="auth-input" type="text" formControlName="nombre" placeholder="Tu nombre">
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Edad</ion-label>
-        <ion-input type="number" formControlName="edad"></ion-input>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label" for="edad">Edad</label>
+        <input id="edad" class="auth-input" type="number" formControlName="edad" placeholder="Tu edad">
+      </div>
 
       <div class="role-panel">
         <div class="role-panel-header">
@@ -70,10 +70,10 @@
 
     <!-- Paso 2: Videojuego -->
     <div *ngIf="step === 2" class="step">
-      <ion-item>
-        <ion-label position="floating">Videojuego favorito</ion-label>
-        <ion-input [value]="form.value.videojuego_fav" readonly></ion-input>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label" for="videojuego-fav">Videojuego favorito</label>
+        <input id="videojuego-fav" class="auth-input" [value]="form.value.videojuego_fav" readonly>
+      </div>
 
       <div class="game-search-panel">
         <div class="game-search-header">
@@ -84,13 +84,14 @@
           <p>Escribe el nombre y selecciona el que quieres guardar.</p>
         </div>
 
-        <ion-item class="game-search-item">
-          <ion-label position="stacked">Buscar videojuego</ion-label>
-          <ion-input
+        <div class="field-group game-search-item">
+          <label class="field-label" for="buscar-videojuego">Buscar videojuego</label>
+          <input
+            id="buscar-videojuego"
+            class="auth-input"
             placeholder="Busca y selecciona un videojuego"
-            (ionInput)="onGameSearch($event)">
-          </ion-input>
-        </ion-item>
+            (input)="onGameSearch($event)">
+        </div>
       </div>
 
       <ion-list *ngIf="games?.length" class="game-results-list">
@@ -110,29 +111,29 @@
         </ion-item>
       </ion-list>
 
-      <ion-item *ngIf="selectedGame || form.value.imagen_juego_url">
-        <ion-label position="stacked">Imagen del videojuego</ion-label>
-        <img [src]="selectedGame?.imageUrl || form.value.imagen_juego_url" style="width:100%;border-radius:8px;" />
-      </ion-item>
+      <div *ngIf="selectedGame || form.value.imagen_juego_url" class="field-group">
+        <label class="field-label">Imagen del videojuego</label>
+        <img [src]="selectedGame?.imageUrl || form.value.imagen_juego_url" class="preview-img" alt="Imagen del videojuego" />
+      </div>
 
-      <ion-item *ngIf="selectedGame">
+      <div *ngIf="selectedGame" class="field-group">
         <ion-button fill="clear" color="medium" (click)="clearSelectedGame()">Eliminar selección</ion-button>
-      </ion-item>
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Plataforma</ion-label>
-        <ion-input formControlName="plataforma" [disabled]="!selectedGame" readonly></ion-input>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label" for="plataforma">Plataforma</label>
+        <input id="plataforma" class="auth-input" formControlName="plataforma" [disabled]="!selectedGame" readonly>
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Género</ion-label>
-        <ion-input formControlName="genero" [disabled]="!selectedGame" readonly></ion-input>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label" for="genero">Género</label>
+        <input id="genero" class="auth-input" formControlName="genero" [disabled]="!selectedGame" readonly>
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Comentario</ion-label>
-        <ion-textarea formControlName="comentario_juego" [disabled]="!selectedGame" readonly></ion-textarea>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label" for="comentario-juego">Comentario</label>
+        <textarea id="comentario-juego" class="auth-input auth-textarea" formControlName="comentario_juego" [disabled]="!selectedGame" readonly></textarea>
+      </div>
 
       <div class="step-actions">
         <ion-button type="button" fill="clear" (click)="prevStep()">Anterior</ion-button>
@@ -142,9 +143,9 @@
 
     <!-- Paso 3: Ubicación e imagen del lugar -->
     <div *ngIf="step === 3" class="step">
-      <ion-item>
-        <ion-label position="stacked">Imagen del lugar</ion-label>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label">Imagen del lugar</label>
+      </div>
 
       <div class="photo-actions">
         <label class="file-button">
@@ -162,20 +163,20 @@
         <img [src]="form.value.imagen_lugar_url" class="game-preview" alt="Imagen lugar" />
       </div>
 
-      <ion-item>
-        <ion-label position="floating">Lugar aproximado</ion-label>
-        <ion-input formControlName="lugar_aprox"></ion-input>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label" for="lugar-aprox">Lugar aproximado</label>
+        <input id="lugar-aprox" class="auth-input" formControlName="lugar_aprox" placeholder="Describe el lugar">
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Latitud</ion-label>
-        <ion-input formControlName="latitud"></ion-input>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label" for="latitud">Latitud</label>
+        <input id="latitud" class="auth-input" formControlName="latitud" placeholder="Latitud">
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Longitud</ion-label>
-        <ion-input formControlName="longitud"></ion-input>
-      </ion-item>
+      <div class="field-group">
+        <label class="field-label" for="longitud">Longitud</label>
+        <input id="longitud" class="auth-input" formControlName="longitud" placeholder="Longitud">
+      </div>
 
       <ion-button class="location-button" expand="block" type="button" (click)="tryGetLocation()">
         <ion-icon name="locate-outline" slot="start"></ion-icon>

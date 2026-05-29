@@ -46,7 +46,7 @@ export class LoginPage {
       await new Promise(resolve => setTimeout(resolve, 2000));
       this.showWelcome = false;
 
-      await this.router.navigateByUrl('/poemas', { replaceUrl: true });
+      await this.router.navigateByUrl('/videojuegos', { replaceUrl: true });
     } catch (e: any) {
       this.error = e?.message ?? 'Error al iniciar sesión';
     } finally {

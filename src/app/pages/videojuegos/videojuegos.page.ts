@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
@@ -31,7 +31,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { add, locationOutline, gameControllerOutline } from 'ionicons/icons';
+import { add, locationOutline, gameControllerOutline, chevronBackOutline, chevronForwardOutline } from 'ionicons/icons';
 
 import { AuthService } from '../../services/auth.service';
 import { FormularioService, RegistroFormulario } from '../../services/formulario.service';
@@ -41,9 +41,9 @@ type TarjetaFormulario = RegistroFormulario & {
 };
 
 @Component({
-  selector: 'app-poemas',
-  templateUrl: './poemas.page.html',
-  styleUrls: ['./poemas.page.scss'],
+  selector: 'app-videojuegos',
+  templateUrl: './videojuegos.page.html',
+  styleUrls: ['./videojuegos.page.scss'],
   standalone: true,
 
   imports: [
@@ -76,15 +76,37 @@ type TarjetaFormulario = RegistroFormulario & {
     IonLabel
   ]
 })
-export class PoemasPage implements OnInit {
+export class VideojuegosPage implements OnInit {
+
+  @ViewChild(IonContent) content?: IonContent;
+
+  readonly registrosPorPagina = 6;
 
   poemas: TarjetaFormulario[] = [];
+  paginaActual = 1;
 
   imagenLugarVisibleId: number | null = null;
 
   toggleImagenLugar(id: number) {
     this.imagenLugarVisibleId =
       this.imagenLugarVisibleId === id ? null : id;
+  }
+
+  get totalRegistros(): number {
+    return this.poemas.length;
+  }
+
+  get totalPaginas(): number {
+    return Math.max(1, Math.ceil(this.totalRegistros / this.registrosPorPagina));
+  }
+
+  get poemasPaginaActual(): TarjetaFormulario[] {
+    const inicio = (this.paginaActual - 1) * this.registrosPorPagina;
+    return this.poemas.slice(inicio, inicio + this.registrosPorPagina);
+  }
+
+  get paginas(): number[] {
+    return Array.from({ length: this.totalPaginas }, (_, index) => index + 1);
   }
 
   constructor(
@@ -96,7 +118,9 @@ export class PoemasPage implements OnInit {
     addIcons({
       add,
       locationOutline,
-      gameControllerOutline
+      gameControllerOutline,
+      chevronBackOutline,
+      chevronForwardOutline
     });
 
   }
@@ -119,6 +143,8 @@ export class PoemasPage implements OnInit {
         ...registro,
         imagenPrincipal: registro.imagen_juego_url || registro.imagen_lugar_url || 'assets/icon/default-poema.jpg'
       }));
+      this.paginaActual = 1;
+      this.imagenLugarVisibleId = null;
 
     } catch (error) {
 
@@ -126,6 +152,24 @@ export class PoemasPage implements OnInit {
 
     }
 
+  }
+
+  async cambiarPagina(pagina: number) {
+    if (pagina < 1 || pagina > this.totalPaginas || pagina === this.paginaActual) {
+      return;
+    }
+
+    this.paginaActual = pagina;
+    this.imagenLugarVisibleId = null;
+    await this.content?.scrollToTop(250);
+  }
+
+  async paginaAnterior() {
+    await this.cambiarPagina(this.paginaActual - 1);
+  }
+
+  async paginaSiguiente() {
+    await this.cambiarPagina(this.paginaActual + 1);
   }
 
   async logout() {

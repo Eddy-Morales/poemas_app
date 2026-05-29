@@ -3,6 +3,79 @@ ion-item input[type="file"] {
   padding: 8px 0;
 }
 
+.field-group {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.field-label {
+  display: block;
+  margin: 0 0 8px;
+  color: #eef2ff;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.auth-input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 58px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(167, 139, 250, 0.24);
+  background: rgba(12, 9, 28, 0.9);
+  color: #eef2ff;
+  font-size: 16px;
+  outline: none;
+}
+
+.auth-input::placeholder {
+  color: rgba(203, 213, 225, 0.72);
+}
+
+.auth-input:focus {
+  border-color: #3ad1ff;
+  box-shadow: 0 0 0 3px rgba(58, 209, 255, 0.14);
+}
+
+.auth-input:disabled,
+.auth-input[readonly] {
+  opacity: 0.78;
+}
+
+.auth-textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.preview-img {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(167, 139, 250, 0.16);
+}
+
+ion-item,
+ion-input,
+ion-textarea,
+ion-select {
+  width: 100%;
+}
+
+ion-item {
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+}
+
+ion-input,
+ion-textarea,
+ion-select {
+  --color: #eef2ff;
+  --placeholder-color: rgba(203, 213, 225, 0.72);
+  font-size: 1rem;
+}
+
 /* Tema y layout del formulario (coincide con otros estilos neon) */
 .step {
   background: rgba(20, 16, 44, 0.9);
@@ -19,6 +92,10 @@ ion-item input[type="file"] {
   align-items: center;
   justify-content: space-between;
   margin-top: 12px;
+}
+
+.step-actions ion-button {
+  flex: 1;
 }
 
 .game-search-panel {
@@ -189,6 +266,15 @@ ion-thumbnail img {
     flex-direction: column-reverse;
   }
 
+  .step-actions ion-button {
+    width: 100%;
+  }
+
+  .auth-input {
+    min-height: 60px;
+    font-size: 16px;
+  }
+
   .role-group {
     grid-template-columns: 1fr;
   }
@@ -197,8 +283,27 @@ ion-thumbnail img {
     padding: 14px;
   }
 
+  .game-search-item,
+  .game-result-item,
+  .file-button,
+  .camera-button,
+  .location-button {
+    width: 100%;
+  }
+
   .game-result-item {
     --min-height: 58px;
+  }
+
+  ion-item {
+    --padding-start: 10px;
+    --inner-padding-end: 10px;
+  }
+
+  ion-input,
+  ion-textarea,
+  ion-select {
+    font-size: 1rem;
   }
 }
 
@@ -256,6 +361,39 @@ ion-input[disabled], ion-textarea[disabled] {
 
 .image-preview-box {
   margin: 0 0 14px;
+}
+
+@media (max-width: 420px) {
+  .step {
+    padding: 14px;
+  }
+
+  .game-search-panel,
+  .role-panel {
+    padding: 12px;
+  }
+
+  .field-group {
+    margin-bottom: 12px;
+  }
+
+  .auth-input {
+    min-height: 62px;
+    padding: 14px 14px;
+    font-size: 17px;
+  }
+
+  .camera-button,
+  .location-button,
+  .file-button {
+    min-height: 52px;
+    font-size: 0.95rem;
+  }
+
+  .game-result-thumb {
+    width: 48px;
+    height: 34px;
+  }
 }
 
 /* Header style */

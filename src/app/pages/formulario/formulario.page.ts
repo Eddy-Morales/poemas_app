@@ -117,7 +117,7 @@ export class FormularioPage {
   }
 
   onGameSearch(event: any) {
-    const q = (event?.detail?.value || '').trim();
+    const q = (event?.detail?.value ?? event?.target?.value ?? '').trim();
     if (!q) {
       this.games = [];
       return;
@@ -150,7 +150,7 @@ export class FormularioPage {
   }
 
   goBack() {
-    this.router.navigate(['/poemas']);
+    this.router.navigate(['/videojuegos']);
   }
 
   async takePhoto() {
@@ -235,7 +235,7 @@ export class FormularioPage {
       this.toastMsg = 'Registro creado correctamente';
       // Opcional: limpiar formulario o navegar
       this.form.reset();
-      await this.router.navigateByUrl('/poemas'); // o la ruta que quieras
+      await this.router.navigateByUrl('/videojuegos');
     } catch (e: any) {
       this.toastMsg = e?.message ?? 'Error al crear registro';
     } finally {

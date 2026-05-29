@@ -11,6 +11,7 @@
 
   <div class="page-hero">
     <h2>Juegos free to play</h2>
+    <p>Total de registros: {{ totalRegistros }}</p>
   </div>
 
   <ion-grid fixed>
@@ -20,7 +21,7 @@
         size="12"
         size-md="6"
         size-lg="4"
-        *ngFor="let poema of poemas">
+        *ngFor="let poema of poemasPaginaActual">
 
         <ion-card class="poema-card">
 
@@ -127,6 +128,37 @@
 
     </ion-row>
   </ion-grid>
+
+  <div class="pagination-panel" *ngIf="poemas.length > registrosPorPagina">
+    <ion-button
+      fill="outline"
+      class="pagination-btn"
+      aria-label="Página anterior"
+      [disabled]="paginaActual === 1"
+      (click)="paginaAnterior()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+
+    <div class="page-numbers">
+      <ion-button
+        *ngFor="let pagina of paginas"
+        fill="clear"
+        class="page-number"
+        [class.page-number-active]="pagina === paginaActual"
+        (click)="cambiarPagina(pagina)">
+        {{ pagina }}
+      </ion-button>
+    </div>
+
+    <ion-button
+      fill="outline"
+      class="pagination-btn"
+      aria-label="Página siguiente"
+      [disabled]="paginaActual === totalPaginas"
+      (click)="paginaSiguiente()">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-button>
+  </div>
 
   <!-- FAB -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

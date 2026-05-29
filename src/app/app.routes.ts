@@ -6,18 +6,8 @@ export const routes: Routes = [
   { path: 'login', loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage) },
   { path: 'register', loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage) },
   {
-    path: 'poemas',
-    loadComponent: () => import('./pages/videojuegos/poemas.page').then(m => m.PoemasPage),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'poemas-form',
-    loadComponent: () => import('./pages/videojuego-form/poema-form.page').then(m => m.PoemaFormPage),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'poemas-form/:id',
-    loadComponent: () => import('./pages/videojuego-form/poema-form.page').then(m => m.PoemaFormPage),
+    path: 'videojuegos',
+    loadComponent: () => import('./pages/videojuegos/videojuegos.page').then(m => m.VideojuegosPage),
     canActivate: [AuthGuard]
   },
   {
