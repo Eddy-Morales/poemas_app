@@ -2,6 +2,10 @@
 
 GamesApp es una app móvil hecha con Ionic y Angular para registrar y consultar información de videojuegos.
 
+## Para monitorizar los registros en formulario
+
+https://tabla-393d0.web.app/home
+
 ## Qué hace la app
 
 - Permite iniciar sesión y crear una cuenta.
@@ -28,3 +32,7 @@ GamesApp es una app móvil hecha con Ionic y Angular para registrar y consultar 
 - Capacitor
 - Supabase
 - FreeToGame API
+
+## Invitación para probar la app
+
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/1742a3ae-3be8-4ad8-95a4-7b4d0fcec417" />
